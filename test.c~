@@ -1,0 +1,13 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main(){
+  char * c ;
+  c = "ab";
+  //int s = strlen(c);
+  char *v = malloc(strlen(c));
+  strcpy(v , c);
+  printf("%ld\n" , strlen(v));
+  return 0 ;
+}
