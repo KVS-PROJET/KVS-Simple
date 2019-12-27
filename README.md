@@ -1,4 +1,8 @@
 # KVS-Simple
-Table de hashage avec simple fonction de hashage
+Table de hashage implémenté avec murmurhash3 x64 128bits
 
-Ce répertoire contient une implémentation simple de table de hashage à base de listes chainées avec une fonction de hashage simple, et quelques tests des deux fonctions kvs_put et kvs_get .
+void MurmurHash3_x64_128(const void *key, int len, uint32_t seed, void *out);
+
+out sera l'index dans le table de hashage !
+
+!! Ce teste présente une erreur au niveau des types uint32 , int
