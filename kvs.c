@@ -1,25 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "kvs.h"
 
-#define N 10 // Taille de table de hashage
 
-struct element {
-  char* key  ;
-  char* value;
-  struct element* Next ;
-};
-
-struct element ** kvs;
-
-void initialiser_kvs () { 
-  kvs = malloc(sizeof(struct element *) * N);
+struct element** initialiser_kvs (const int N) { 
+  struct element** kvs = malloc(sizeof(struct element *) * N);
   for (int i =0; i<N; ++i){
     kvs[i] = NULL ;
-  }  
+  }
+  printf("%d\n" , N) ;
+  return kvs ;
 }
 
-int hash_function(char* key){
+int hash_function(char* key , const int N){
   // Une simple fonction de hashage :
   unsigned int index = 0;
   int n = strlen(key);
@@ -29,9 +23,9 @@ int hash_function(char* key){
   return index % N ;
 }
 
-int kvs_get(char* key, char** out_data, size_t* data_size){
+int kvs_get(char* key, char** out_data, size_t* data_size , const int N , struct element** kvs){
   
-  const int index = hash_function(key);
+  const int index = hash_function(key , N);
   struct element * ptr = kvs[index]   ;
   struct element * ptr_prev ;
   if (ptr == NULL){
@@ -49,8 +43,8 @@ int kvs_get(char* key, char** out_data, size_t* data_size){
   }
 }
 
-int kvs_put(char* key, char * in_data, size_t data_size){
-  const int index = hash_function(key);
+int kvs_put(char* key, char * in_data, size_t data_size , const int N, struct element** kvs){
+  const int index = hash_function(key , N);
   
   if ( kvs[index] == NULL ){
     printf("%s\n", "ajout sans collision");
@@ -73,7 +67,7 @@ int kvs_put(char* key, char * in_data, size_t data_size){
   }
   return 0 ;
 }
-void Affichage(){
+void Affichage(const int N, struct element ** kvs){
   for (int i =0; i<N; ++i){
     if (kvs[i] == NULL)
       continue;
@@ -87,39 +81,4 @@ void Affichage(){
     }
     printf("\n");
   }
-}
-
-int main(){
-  initialiser_kvs() ; 
-
-  char* c = "ab";
-  //printf("%u\n", hash_function(c));
-  
-  // Test : kvs_put ------------------------------
-  int ret = kvs_put("ab", "abcdef", 6);
-  Affichage();
-  printf("%d     %s\n" , ret ,"Nouvelle valeur");
-  
-  ret = kvs_put("ba", "xyzw", 5);
-  Affichage();
-  printf("%d     %s\n" , ret ,"Nouvelle valeur");
-  
-  ret = kvs_put("rh", "hkjhs", 6);
-  Affichage();
-  printf("%d     %s\n" , ret ,"Nouvelle valeur");
-
-  // Test  : kvs_get ----------------------------
-
-  char* out_data   = NULL;
-  size_t data_size = 0;
-  
-  ret = kvs_get("ba" , &out_data, &data_size);
-  printf("%d\n" , ret);
-  printf("%s ,  %ld\n" , out_data, data_size);
-  
-  ret = kvs_get("rh" , &out_data, &data_size);
-  printf("%d\n" , ret);
-  printf("%s ,  %ld\n" , out_data, data_size);
-  
-  return 0;
 }
