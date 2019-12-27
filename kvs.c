@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdint.h>
 #include "kvs.h"
-
+#include "murmur3.h"
 
 struct element** initialiser_kvs (const int N) { 
   struct element** kvs = malloc(sizeof(struct element *) * N);
@@ -13,19 +14,13 @@ struct element** initialiser_kvs (const int N) {
   return kvs ;
 }
 
-int hash_function(char* key , const int N){
-  // Une simple fonction de hashage :
-  unsigned int index = 0;
-  int n = strlen(key);
-  while(n--){
-    index += (int)key[n];
-  }
-  return index % N ;
-}
 
 int kvs_get(char* key, char** out_data, size_t* data_size , const int N , struct element** kvs){
   
-  const int index = hash_function(key , N);
+  uint32_t hash[4];
+  uint32_t seed = 42 ;
+  MurmurHash3_x64_128(key , strlen(key), seed, hash);
+  int32_t index = (int32_t)hash ;
   struct element * ptr = kvs[index]   ;
   struct element * ptr_prev ;
   if (ptr == NULL){
@@ -44,8 +39,10 @@ int kvs_get(char* key, char** out_data, size_t* data_size , const int N , struct
 }
 
 int kvs_put(char* key, char * in_data, size_t data_size , const int N, struct element** kvs){
-  const int index = hash_function(key , N);
-  
+  uint32_t hash[4];
+  uint32_t seed = 42 ;
+  MurmurHash3_x64_128(key , strlen(key), seed, hash);
+  int32_t = (int32_t)hash ;
   if ( kvs[index] == NULL ){
     printf("%s\n", "ajout sans collision");
     kvs[index] = malloc(sizeof(struct element));
