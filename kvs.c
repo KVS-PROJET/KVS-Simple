@@ -20,7 +20,7 @@ int kvs_get(char* key, char** out_data, size_t* data_size , const int N , struct
   uint32_t hash[4];
   uint32_t seed = 42 ;
   MurmurHash3_x64_128(key , strlen(key), seed, hash);
-  int32_t index = (int32_t)hash ;
+  int32_t index = hash[0];
   struct element * ptr = kvs[index]   ;
   struct element * ptr_prev ;
   if (ptr == NULL){
@@ -42,7 +42,7 @@ int kvs_put(char* key, char * in_data, size_t data_size , const int N, struct el
   uint32_t hash[4];
   uint32_t seed = 42 ;
   MurmurHash3_x64_128(key , strlen(key), seed, hash);
-  int32_t = (int32_t)hash ;
+  int32_t index = hash[0] ;
   if ( kvs[index] == NULL ){
     printf("%s\n", "ajout sans collision");
     kvs[index] = malloc(sizeof(struct element));
