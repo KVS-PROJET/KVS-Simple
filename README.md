@@ -1,8 +1,6 @@
 # KVS-Simple
-Table de hashage implémenté avec murmurhash3 x64 128bits
 
-void MurmurHash3_x64_128(const void *key, int len, uint32_t seed, void *out);
+Table de hashage implémenté avec murmurhash3 x86 32bits
 
-out sera l'index dans le table de hashage !
+void MurmurHash3_x86_32(const void *key, int len, uint32_t seed, void *out);
 
-!! Ce teste présente une erreur au niveau des types uint32 , int

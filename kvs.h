@@ -10,10 +10,12 @@ struct element {
   struct element* Next ;
 } ;
 
+typedef struct element** KVS ; 
+//KVS *kvs ;
 
-struct element ** initialiser_kvs(const int N) ;
-int kvs_get(char* key, char** out_data, size_t* data_size, const int N, struct element** kvs);
-int kvs_put(char* key, char* in_data, size_t data_size, const int N, struct element** kvs);
-void Affichage(const int N , struct element** kvs);
+int initialiser_kvs(const int N , KVS * kvs__) ;
+int kvs_get(char* key, char** out_data, size_t* data_size);
+int kvs_put(char* key, char* in_data, size_t data_size);
+void Affichage();
 
 #endif
