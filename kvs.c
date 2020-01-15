@@ -10,7 +10,7 @@ uint32_t taille_kvs = 0;
 
 //typedef struct element** KVS ;
 
-KVS *kvs = NULL ;
+KVS *kvs = NULL ; // kvs sera pointé sur le kvs_ définie dans le main et passé en paramètres dans la fonction initiliser().
 
 int initialiser_kvs (const int N , KVS * kvs_) {
   printf("%s\n" , "Initialisation");
