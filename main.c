@@ -5,9 +5,6 @@
 #include "murmur3.h"
 
 
-
-KVS *my_kvs = NULL ;
-
 int main(int argc , char* argv[] ){
   printf("%s\n" , "Beginning of main ---");
   
@@ -15,17 +12,10 @@ int main(int argc , char* argv[] ){
     printf("%s" , "Entrer la taille du table de hashage");
     return 0 ;
   }
+ 
   const int N = atoi(argv[1]) ;
-  struct element** kvs = initialiser_kvs(N) ; 
+  initialiser_kvs(N) ; 
 
-  //printf("%s\n" , "I'm here");
-  
-  int Init = initialiser_kvs(N , my_kvs) ;
-  printf("%d\n" , Init);
-  
-  printf("%s\n" , "I'm here");
-  
-  
   // Test : kvs_put ------------------------------
   int ret = kvs_put("ab", "abcdef", 6 );
   //printf("%s\n" , "I'm here");
@@ -54,6 +44,7 @@ int main(int argc , char* argv[] ){
   printf("%d\n" , ret);
   printf("%s ,  %ld\n" , out_data, data_size);
 
-  free(my_kvs);
+  free_kvs();
+  
   return 0;
 }

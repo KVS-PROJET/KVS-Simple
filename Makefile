@@ -8,11 +8,12 @@ test: main.o kvs.o murmur3.o
 
 shared : murmur3.c murmur3.h
 	gcc -c murmur3.c
-	gcc -shared -Wl, --export-dynamic murmur3.o -o libmurmur3.so
+	gcc  murmur3.o 
 main.o: main.c
 	gcc -c main.c
 
 kvs.o : kvs.c kvs.h
 	gcc -c kvs.c
 clean :
-	rm -f execu
+	rm -f test
+
