@@ -30,9 +30,10 @@ int main(int argc , char* argv[] ){
   Affichage();
 
   printf("%d     %s\n" , ret ,"Nouvelle valeur");
-
+  kvs_put("ab", "Other value", 6 );
+  Affichage();
   // Test  : kvs_get ----------------------------
-
+  
   char* out_data   = NULL;
   size_t data_size = 0;
   
