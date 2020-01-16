@@ -28,8 +28,8 @@ static FORCE_INLINE uint64_t rotl64 ( uint64_t x, int8_t r )
   return (x << r) | (x >> (64 - r));
 }
 
-#define	ROTL32(x,y)	rotl32(x,y)
-#define ROTL64(x,y)	rotl64(x,y)
+#define ROTL32(x,y) rotl32(x,y)
+#define ROTL64(x,y) rotl64(x,y)
 
 #define BIG_CONSTANT(x) (x##LLU)
 

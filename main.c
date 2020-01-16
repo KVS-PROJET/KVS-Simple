@@ -6,17 +6,19 @@
 
 
 int main(int argc , char* argv[] ){
+  printf("%s\n" , "Beginning of main ---");
   
   if ( argc > 2 || argc == 0 ){
     printf("%s" , "Entrer la taille du table de hashage");
     return 0 ;
   }
+ 
   const int N = atoi(argv[1]) ;
-  initialiser_kvs(N) ;
-  
-  
+  initialiser_kvs(N) ; 
+
   // Test : kvs_put ------------------------------
   int ret = kvs_put("ab", "abcdef", 6 );
+  //printf("%s\n" , "I'm here");
   Affichage();
   printf("%d     %s\n" , ret ,"Nouvelle valeur");
   
@@ -26,6 +28,7 @@ int main(int argc , char* argv[] ){
   
   ret = kvs_put("rh", "hkjhs", 6);
   Affichage();
+
   printf("%d     %s\n" , ret ,"Nouvelle valeur");
 
   // Test  : kvs_get ----------------------------
@@ -40,6 +43,8 @@ int main(int argc , char* argv[] ){
   ret = kvs_get("rh" , &out_data, &data_size);
   printf("%d\n" , ret);
   printf("%s ,  %ld\n" , out_data, data_size);
+
+  free_kvs();
   
   return 0;
 }
